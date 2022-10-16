@@ -1,11 +1,24 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
+import { Route, Routes } from 'react-router-dom'
+import TasksPage from './pages/Tasks/TasksPage'
+import TasksForm from './pages/Tasks/TasksForm'
+import NotFound from './pages/NotFound'
+import TasksUpdate from './pages/Tasks/TasksUpdate'
+import Navbar from './components/Navbar'
 
 function App() {
 
   return (
-    <h2>Hola React</h2>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={ <TasksPage /> } />
+        <Route path='*' element={ <NotFound /> }/>
+        <Route path='/new' element={ <TasksForm /> } />
+        <Route path='/update/:id' element={ <TasksUpdate /> } />
+      </Routes>
+    </>
   )
 }
 
