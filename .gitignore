@@ -1,3 +1,4 @@
-/node_modules
+/api/node_modules
 /.fleet
-/database
+/api/database
+/client/node_modules
