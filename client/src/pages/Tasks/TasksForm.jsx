@@ -12,24 +12,26 @@ function TasksForm() {
           description: "",
         }}
         //Aqui verificamos los datos enviados
-        onSubmit={ async (values) => {
+        onSubmit={ async (values, actions) => {
           console.log(values)
           try {
             const response = await createTaskRequest(values)
             console.log(response)
+            actions.resetForm()
           } catch(e) { 
             console.log('Error => '+ e)
           }
         }}
       >
         {/* Abrimos una funcion de jsx la cual tiene la función handleChange escuchando los cambios. handleSubmit ejecuta el formulario */}
-        {({ handleChange, handleSubmit }) => (
+        {({ handleChange, handleSubmit, values, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <label>Titulo</label>
             <input
               type="text"
               name="title"
               placeholder="Escribe el titulo de la tarea"
+              value={values.title}
               onChange={handleChange}
             />
 
@@ -38,10 +40,12 @@ function TasksForm() {
               rows="4"
               name="description"
               placeholder="Escribe la descripción de tu tarea"
+              value={values.description}
               onChange={handleChange}
             ></textarea>
 
-            <input type="submit" value="Enviar" />
+            
+            <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Guardando..." : "Enviar" }</button>
           </Form>
         )}
       </Formik>
